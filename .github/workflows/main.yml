@@ -19,7 +19,7 @@ jobs:
 
       - name: List all files and folders recursively
         run: |
-          echo "📁 Listing full directory tree to help locate publish output..."
+          echo "📁 Listing full directory tree..."
           ls -R
 
       - name: Install lftp
@@ -27,7 +27,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y lftp
 
-      - name: Upload files to FTP server using lftp
+      - name: Upload Inventory_build to FTP server
         run: |
-          lftp -e "mirror -R publish public_html; quit" \
+          lftp -e "mirror -R Inventory_build public_html; quit" \
           -u "u436604201.mediumspringgreen-wombat-997457.hostingersite.com,P@ss123#@!123" 82.29.199.121
