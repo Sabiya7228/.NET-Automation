@@ -1,0 +1,27 @@
+name: CI/CD Pipeline
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Optional: If your published .NET files are in a subdirectory, set the correct path below
+      - name: Upload published files via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4
+        with:
+          server: ftp://82.29.199.121
+          username: u436604201.mediumspringgreen-wombat-997457.hostingersite.com
+          password: P@ss123#@!123
+          local-dir: ./publish/  # Change this if your published files are in a different folder
+          server-dir: /public_html/ # Change this to your desired destination on the FTP server
