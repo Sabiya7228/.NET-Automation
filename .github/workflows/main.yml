@@ -17,12 +17,22 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Optional: If your published .NET files are in a subdirectory, set the correct path below
-      - name: Upload published files via FTP
-        uses: genietim/ftp-action@releases/v4
-        with:
-          server: ftp://82.29.199.121
-          username: u436604201.mediumspringgreen-wombat-997457.hostingersite.com
-          password: P@ss123#@!123
-          local-dir: ./publish/
-          server-dir: /public_html/
+      # Download FileZilla Pro CLI (update the link as needed)
+      - name: Download FileZilla Pro CLI
+        run: |
+          wget -O fzcli.tar.gz "https://your-download-link/FileZilla_Pro_CLI_Linux_x86_64.tar.gz"
+          tar -xzvf fzcli.tar.gz
+          sudo mv FileZillaProCLI*/fzcli /usr/local/bin/fzcli
+          sudo chmod +x /usr/local/bin/fzcli
+
+      # Create FileZilla CLI script
+      - name: Create FileZilla CLI script
+        run: |
+          echo "connect ftp://u436604201.mediumspringgreen-wombat-997457.hostingersite.com:P@ss123#@!123@ftp://82.29.199.121" > fzcli-script.txt
+          echo "rput publish /path/on/server" >> fzcli-script.txt
+          echo "quit" >> fzcli-script.txt
+
+      # Run FileZilla CLI script
+      - name: Run FileZilla CLI script
+        run: |
+          fzcli --mode standalone --script fzcli-script.txt
