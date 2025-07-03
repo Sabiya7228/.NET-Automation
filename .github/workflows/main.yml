@@ -19,7 +19,7 @@ jobs:
 
       # Optional: If your published .NET files are in a subdirectory, set the correct path below
       - name: Upload published files via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4
+        uses: genietim/ftp-action@releases/v4
         with:
           server: ftp://82.29.199.121
           username: u436604201.mediumspringgreen-wombat-997457.hostingersite.com
