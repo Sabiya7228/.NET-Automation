@@ -17,20 +17,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install .NET SDK
-        uses: actions/setup-dotnet@v3
-        with:
-          dotnet-version: '8.0.x'  # Adjust as needed
-
-
+      - name: List all files and folders recursively
+        run: |
+          echo "📁 Listing full directory tree to help locate publish output..."
+          ls -R
 
       - name: Install lftp
         run: |
-          ls
           sudo apt-get update
           sudo apt-get install -y lftp
 
       - name: Upload files to FTP server using lftp
         run: |
-          lftp -e "mirror -R . public_html; quit" \
+          lftp -e "mirror -R publish public_html; quit" \
           -u "u436604201.mediumspringgreen-wombat-997457.hostingersite.com,P@ss123#@!123" 82.29.199.121
