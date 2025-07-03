@@ -29,5 +29,5 @@ jobs:
 
       - name: Upload Inventory_build to FTP server
         run: |
-          lftp -e "set ssl:verify-certificate no; mirror -R Inventory_build public_html; quit" \
+          lftp -e "set ssl:verify-certificate no; mirror -R Inventory_build /; quit" \
           -u "u436604201.mediumspringgreen-wombat-997457.hostingersite.com,P@ss123#@!123" 82.29.199.121
