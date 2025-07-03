@@ -22,10 +22,7 @@ jobs:
         with:
           dotnet-version: '8.0.x'  # Adjust as needed
 
-      - name: Build .NET project
-        run: |
-          dotnet restore
-          dotnet publish -c Release -o publish
+
 
       - name: Install lftp
         run: |
