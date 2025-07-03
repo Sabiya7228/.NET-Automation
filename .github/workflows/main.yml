@@ -17,6 +17,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Upload files via FTP using lftp
+      - name: Install lftp
         run: |
-          lftp -e "mirror -R publish /path/on/server; quit" -u "u436604201.mediumspringgreen-wombat-997457.hostingersite.com,P@ss123#@!123" 82.29.199.121
+          sudo apt-get update
+          sudo apt-get install -y lftp
+
+      - name: Upload files to FTP server using lftp
+        run: |
+          lftp -e "mirror -R publish public_html; quit" \
+          -u "u436604201.mediumspringgreen-wombat-997457.hostingersite.com,P@ss123#@!123" 82.29.199.121
