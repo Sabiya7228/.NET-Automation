@@ -17,18 +17,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Download FileZilla Pro CLI (update the link as needed)
-      - name: Download FileZilla Pro CLI
+      # Download and extract FileZilla Pro CLI
+      # Replace the URL below with your actual, licensed FileZilla Pro CLI download link
+      - name: Download and extract FileZilla Pro CLI
         run: |
-          wget -O fzcli.tar.gz "https://your-download-link/FileZilla_Pro_CLI_Linux_x86_64.tar.gz"
-          tar -xzvf fzcli.tar.gz
-          sudo mv FileZillaProCLI*/fzcli /usr/local/bin/fzcli
+          wget -O fzcli.tar.bz2 "https://your-real-download-link/FileZilla_Pro_CLI_Linux_x86_64.tar.bz2"
+          tar -xjf fzcli.tar.bz2
+          FZCLI_DIR=$(find . -type d -name "FileZillaProCLI*" | head -n 1)
+          sudo mv "$FZCLI_DIR/fzcli" /usr/local/bin/fzcli
           sudo chmod +x /usr/local/bin/fzcli
 
-      # Create FileZilla CLI script
+      # Create FileZilla CLI script with hardcoded credentials
       - name: Create FileZilla CLI script
         run: |
-          echo "connect ftp://u436604201.mediumspringgreen-wombat-997457.hostingersite.com:P@ss123#@!123@ftp://82.29.199.121" > fzcli-script.txt
+          echo "connect ftp://u436604201.mediumspringgreen-wombat-997457.hostingersite.com:P@ss123#@!123@82.29.199.121" > fzcli-script.txt
           echo "rput publish /path/on/server" >> fzcli-script.txt
           echo "quit" >> fzcli-script.txt
 
